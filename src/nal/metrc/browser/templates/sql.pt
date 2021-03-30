@@ -1,0 +1,26 @@
+<html metal:use-macro="context/main_template/macros/master">
+  <metal:content-core fill-slot="main">
+
+    <tal:sql define="headers python:view.head(); body python:view.body()">
+      <table class="listing" id="sqltable">
+        <thead>
+          <tr>
+            <tal:headers repeat="header python:headers">
+                <th>${header}</th>
+            </tal:headers>
+          </tr>
+        </thead>
+        <tbody>
+          <tal:row repeat="row python:body">
+            <tr>
+              <tal:data repeat="col python:headers">
+                <td>${python:row[col]}</td>
+              </tal:data>
+            </tr>
+          </tal:row>
+        </tbody>
+      </table>
+    </tal:sql>
+
+  </metal:content-core>
+</html>

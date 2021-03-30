@@ -1,0 +1,47 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="nal.metrc">
+
+  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+  <include package="z3c.jbot" file="meta.zcml" />
+  <browser:jbot
+      directory="overrides"
+      layer="nal.metrc.interfaces.INalMetrcLayer"
+      />
+
+  <!-- Publish static files -->
+  <plone:static
+      name="nal.metrc"
+      type="plone"
+      directory="static"
+      />
+
+  <browser:page
+     name="graphing"
+     for="*"
+     template="templates/graphing.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+    name="sql"
+    for="*"
+    layer="zope.interface.Interface"
+    class=".views.SQLView"
+    template="templates/sql.pt"
+    permission="zope2.View"
+    />
+
+  <browser:viewlet
+    name="cannabis"
+    for="nal.metrc.behaviors.cannabis.ICannabis"
+    manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+    class=".viewlets.CannabisViewlet"
+    layer="zope.interface.Interface"
+    template="templates/cannabis_viewlet.pt"
+    permission="zope2.View"
+    />
+
+</configure>
